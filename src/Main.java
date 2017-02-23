@@ -9,6 +9,8 @@ public class Main{
     static int numVideos, numEndPoint, reqDesc, numCaches, cacheSize;
     static String data[];
     static Scanner in;
+    static FileWriter fw;
+    static Cache cacheServers[];
 
     public static void main(String[] param){
 
@@ -17,6 +19,8 @@ public class Main{
 
         String filename = "../res/"+zoo;
         File inputFile = new File(filename);
+
+        fw = new FileWriter(filename);
 
         try{
             in = new Scanner(inputFile);
@@ -37,6 +41,14 @@ public class Main{
         //data structures
         videos = new int[numVideos];
         endpoints = new Endpoint[numEndPoint];
+        cacheServers = new Cache[numCaches];
+
+        int cacheCount = 0;
+        while(cacheCount < numCaches){
+            Cache ca = new Cache(cacheCount,cacheSize);
+            cacheServers[cacheCount] = ca;
+            cacheCount++;
+        }
 
         //video data
         data = in.nextLine().split(" "); //now videos
@@ -44,6 +56,8 @@ public class Main{
         setVideoInfo();
         setEndpoints();
         doRequests();
+
+
 
         in.close();
     }/*End main*/
@@ -56,11 +70,25 @@ public class Main{
         while(in.hasNextLine()){
             data = in.nextLine().split(" ");
             // System.out.println(Arrays.toString(data));
+
+            //[vid endpoint numreq]
+
             videoID = Integer.parseInt(data[0]);
             endpointID = Integer.parseInt(data[1]);
             endpointRequests = Integer.parseInt(data[2]);
 
-            
+            Endpoint ep = endpoints[endpointID];
+
+            if (!ep.caches){
+                continue;
+            }else{
+                //does a cache contain the requested video?
+                for (int cacheID : ep.get_caches()) {
+                    if () {
+                        
+                    }
+                }
+            }
         }
     }
 
@@ -87,6 +115,9 @@ public class Main{
 
             latencyDC = Integer.parseInt(data[0]);
             connectedCashes = Integer.parseInt(data[1]);
+
+            if (connectedCashes == 0)
+                continue;
 
             //make endpoint, add to structure, increase id
             Endpoint ep = new Endpoint(endpointID,latencyDC,numCaches); //on average level, we allocate to much using numCaches
