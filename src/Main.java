@@ -6,7 +6,9 @@ public class Main{
 
     static int videos[];
     static Endpoint endpoints[];
-    static int numVideos, 
+    static int numVideos, numEndPoint, reqDesc, numCaches, cacheSize;
+    static String data[];
+
     public static void main(String[] param){
 
         String zoo = "me_at_the_zoo.in";
@@ -24,13 +26,13 @@ public class Main{
         }
 
         //number data
-        String data[] = in.nextLine().split(" ");
+        data = in.nextLine().split(" ");
 
-        int numVideos = Integer.parseInt(data[0]);
-        int numEndPoint = Integer.parseInt(data[1]);
-        int reqDesc = Integer.parseInt(data[2]);
-        int numCaches = Integer.parseInt(data[3]);
-        int cacheSize = Integer.parseInt(data[4]);
+        numVideos = Integer.parseInt(data[0]);
+        numEndPoint = Integer.parseInt(data[1]);
+        reqDesc = Integer.parseInt(data[2]);
+        numCaches = Integer.parseInt(data[3]);
+        cacheSize = Integer.parseInt(data[4]);
 
         //video data
         data = in.nextLine().split(" "); //now videos
@@ -45,8 +47,6 @@ public class Main{
             videoSize = Integer.parseInt(data[i]);
             videos[i] = videoSize;
         }
-
-        setUpEndpoints();
 
         //first endpoint data
         int endpointID = 0;
@@ -72,7 +72,11 @@ public class Main{
                 cacheServerLatency = Integer.parseInt(data[1]);
                 ep.get_caches()[cacheServerID] = cacheServerLatency;
             }
+            System.out.println(Arrays.toString(ep.get_caches()));
         } /*End while*/
+
+        //Check videos
+        System.exit(1);
 
         //We start on the request data
         while(in.hasNextLine()){
