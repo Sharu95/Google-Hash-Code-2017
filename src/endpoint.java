@@ -17,7 +17,7 @@ class Endpoint{
         return this.cache_servers;
     }
 
-    public get_latency(){
+    public int get_latency(){
         return this.latency;
     }
 
