@@ -15,7 +15,6 @@ public class Cache {
     private int id, capacity, bufferSize;
     LinkedList<Video> buffer;
 
-
     public Cache (int id, int capacity) {
         this.id = id;
         this.capacity = capacity;
@@ -49,6 +48,17 @@ public class Cache {
     public void addToBuffer (int id, int freq, int size) {
         bufferSize += size;
         buffer.add(new Video(id, freq, size));
+    }
+
+    public boolean hasVideo (int id) {
+
+        for (Video v : buffer) {
+            if (v.id == id) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void printVideo () {
