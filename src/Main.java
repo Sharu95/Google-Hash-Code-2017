@@ -3,6 +3,10 @@ import java.util.*;
 
 
 public class Main{
+
+    static int videos[];
+    static Endpoint endpoints[];
+    static int numVideos, 
     public static void main(String[] param){
 
         String zoo = "me_at_the_zoo.in";
@@ -33,8 +37,8 @@ public class Main{
 
 
         //data structures
-        int videos[] = new int[numVideos];
-        Endpoint endpoints[] = new Endpoint[numEndPoint];
+        videos = new int[numVideos];
+        endpoints = new Endpoint[numEndPoint];
 
         int videoSize = 0;
         for (int i = 0; i < numVideos; i++) {
@@ -42,23 +46,42 @@ public class Main{
             videos[i] = videoSize;
         }
 
-        // System.out.println(Arrays.toString(videos));
+        setUpEndpoints();
 
         //first endpoint data
-        int endpoint = 0;
-        data = in.nextLine().split(" ");
-        int latencyDC = Integer.parseInt(data[0]);
-        int connectedCashes = Integer.parseInt(data[1]);
+        int endpointID = 0;
+        int latencyDC, connectedCashes;
+        int cacheServerID = 0;
+        int cacheServerLatency = 0;
 
-        //This means were starting on the requests
-        while(data.length != 3) {
+        //We start on the N endpoint and set up all endoints
+        while(endpointID < numEndPoint) {
+            data = in.nextLine().split(" "); //get endpoint info
 
+            latencyDC = Integer.parseInt(data[0]);
+            connectedCashes = Integer.parseInt(data[1]);
 
+            //make endpoint, add to structure, increase id
+            Endpoint ep = new Endpoint(endpointID,latencyDC,numCaches); //on average level, we allocate to much using numCaches
+            endpoints[endpointID] = ep;
+            endpointID++;
+
+            for (int i = 0; i < connectedCashes; i++) {
+                data = in.nextLine().split(" "); //split next line to get cache ID and its latency
+                cacheServerID = Integer.parseInt(data[0]);
+                cacheServerLatency = Integer.parseInt(data[1]);
+                ep.get_caches()[cacheServerID] = cacheServerLatency;
+            }
+        } /*End while*/
+
+        //We start on the request data
+        while(in.hasNextLine()){
             data = in.nextLine().split(" ");
+
         }
+    }/*End main*/
 
-
-
+    public static void setUpEndpoints(){
 
     }
 }
