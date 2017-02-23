@@ -45,17 +45,12 @@ public class Main{
         // System.out.println(Arrays.toString(videos));
 
         //first endpoint data
-        int endpoint = 0; 
+        int endpoint = 0;
         data = in.nextLine().split(" ");
 
 
         System.out.println(Arrays.toString(data));
         // while(in.hasNextLine()) {
-        // }
-
-
-        // while(in.hasNextLine()){
-        //     //do something
         // }
 
 
