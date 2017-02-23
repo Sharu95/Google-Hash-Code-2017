@@ -14,6 +14,14 @@ class Endpoint{
     }
 
     public int[] get_caches(){
-        return cache_servers;
+        return this.cache_servers;
+    }
+
+    public get_latency(){
+        return this.latency;
+    }
+
+    public int get_id(){
+        return this.id;
     }
 }
