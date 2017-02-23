@@ -6,7 +6,7 @@ public class Main{
 
     static int videos[];
     static Endpoint endpoints[];
-    static int numVideos, 
+    static int numVideos
     public static void main(String[] param){
 
         String zoo = "me_at_the_zoo.in";
@@ -15,6 +15,8 @@ public class Main{
         String filename = "../res/"+zoo;
         File inputFile = new File(filename);
         Scanner in = null;
+
+        FileWriter fw = new FileWriter(filename);
 
         try{
             in = new Scanner(inputFile);
