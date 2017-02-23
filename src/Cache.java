@@ -12,30 +12,47 @@ public class Cache {
         }
     }
 
-    private int id, capacity, memoryUsed;
+    private int id, capacity, bufferSize;
+    LinkedList<Video> buffer;
 
-    LinkedList<Video> cacheList;
 
     public Cache (int id, int capacity) {
         this.id = id;
         this.capacity = capacity;
 
-        cacheList = new LinkedList<>();
+        buffer = new LinkedList<>();
     }
 
     public void addVideo (int id, int freq, int size) {
 
-        if ((memoryUsed + size) < capacity) {
-            memoryUsed += size;
-        } else {
-            cacheList.removeFirst();
+        for (Video v : buffer) {
+            if (v.id == id) {
+                Video temp = buffer.remove(buffer.indexOf(v));
+                bufferSize -= temp.size;
+
+                addToBuffer(id, freq, size);
+                return;
+            }
         }
 
-        cacheList.add(new Video(id, freq, size));
+        if (size > capacity) {
+            return;
+        } else if ((bufferSize + size) > capacity) {
+            // Memory buffer too large
+            Video temp = buffer.removeFirst();
+            bufferSize -= temp.size;
+        }
+
+        addToBuffer(id, freq, size);
     }
 
-    public void printVideo() {
-        for (Video v : cacheList) {
+    public void addToBuffer (int id, int freq, int size) {
+        bufferSize += size;
+        buffer.add(new Video(id, freq, size));
+    }
+
+    public void printVideo () {
+        for (Video v : buffer) {
             System.out.print(v.id + " --> ");
         }
         System.out.println();
@@ -49,11 +66,15 @@ public class Cache {
         return capacity;
     }
 
+    public int getBufferSize() {
+        return bufferSize;
+    }
+
     public String toString () {
         return String.format("Cache #%d:\n" +
-                                "  -> Memory:   %dmb\n" +
-                                "  -> Capacity: %dmb\n"
-                                , id, memoryUsed, capacity);
+                                "  -> Buffer:   %dmb\n" +
+                                "  -> Capacity: %dmb"
+                                , id, bufferSize, capacity);
     }
 
 }
