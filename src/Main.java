@@ -32,9 +32,9 @@ public class Main{
         data = in.nextLine().split(" "); //now videos
 
 
-        //videos
+        //data structures
         int videos[] = new int[numVideos];
-
+        Endpoint endpoints[] = new Endpoint[numEndPoint];
 
         int videoSize = 0;
         for (int i = 0; i < numVideos; i++) {
@@ -47,11 +47,15 @@ public class Main{
         //first endpoint data
         int endpoint = 0;
         data = in.nextLine().split(" ");
+        int latencyDC = Integer.parseInt(data[0]);
+        int connectedCashes = Integer.parseInt(data[1]);
+
+        //This means were starting on the requests
+        while(data.length != 3) {
 
 
-        System.out.println(Arrays.toString(data));
-        // while(in.hasNextLine()) {
-        // }
+            data = in.nextLine().split(" ");
+        }
 
 
 
