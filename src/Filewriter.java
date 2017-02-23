@@ -2,10 +2,13 @@ import java.io.*;
 
 class FileWriter{
     private String logFileName="";
+    private String logLine="";
     private int nLogLines=0;
 
-    public Filewriter(String filename){
-        this.logFileName = filename.substring(0, filename.length - 2) + ".log";
+    public FileWriter(String filename){
+        logFileName = filename.substring(0, filename.length() - 2) + ".log";
+        System.out.println(logFileName);
+        File f = new File(logFileName);
     }
 
     public void write_line(String data){
@@ -16,10 +19,20 @@ class FileWriter{
     	    log.println(data);  ++nLogLines;
     	    log.close();
     	} catch (FileNotFoundException e) {
-    	    String lName = logFileName;
-    	    logFileName = null;
-
-    	    Main.error("Cannot open log file " + lName + "!");
+            System.out.println("Cant find the good damn file!");
     	}
+    }
+
+    public void write_char(int data){
+        if(logLine.length() > 0)
+            logLine = logLine + " " + data;
+        else
+            logLine = ""+data;
+    }
+
+    public void write_charLn(int data){
+        write_char(data);
+        write_line(logLine);
+        logLine = "";
     }
 }
