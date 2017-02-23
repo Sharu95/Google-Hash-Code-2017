@@ -6,7 +6,7 @@ class FileWriter{
     private int nLogLines=0;
 
     public FileWriter(String filename){
-        logFileName = filename.substring(0, filename.length() - 2) + ".log";
+        logFileName = filename.substring(0, filename.length() - 3) + ".log";
         System.out.println(logFileName);
         File f = new File(logFileName);
     }
