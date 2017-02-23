@@ -8,6 +8,7 @@ public class Main{
     static Endpoint endpoints[];
     static int numVideos, numEndPoint, reqDesc, numCaches, cacheSize;
     static String data[];
+    static Scanner in;
 
     public static void main(String[] param){
 
@@ -16,7 +17,6 @@ public class Main{
 
         String filename = "../res/"+zoo;
         File inputFile = new File(filename);
-        Scanner in = null;
 
         try{
             in = new Scanner(inputFile);
@@ -34,19 +34,46 @@ public class Main{
         numCaches = Integer.parseInt(data[3]);
         cacheSize = Integer.parseInt(data[4]);
 
-        //video data
-        data = in.nextLine().split(" "); //now videos
-
-
         //data structures
         videos = new int[numVideos];
         endpoints = new Endpoint[numEndPoint];
 
+        //video data
+        data = in.nextLine().split(" "); //now videos
+
+        setVideoInfo();
+        setEndpoints();
+        doRequests();
+
+        in.close();
+    }/*End main*/
+
+    public static void doRequests(){
+
+        //We start on the request data
+        int endpointRequests, endpointID, videoID;
+
+        while(in.hasNextLine()){
+            data = in.nextLine().split(" ");
+            // System.out.println(Arrays.toString(data));
+            videoID = Integer.parseInt(data[0]);
+            endpointID = Integer.parseInt(data[1]);
+            endpointRequests = Integer.parseInt(data[2]);
+
+            
+        }
+    }
+
+    public static void setVideoInfo(){
         int videoSize = 0;
         for (int i = 0; i < numVideos; i++) {
             videoSize = Integer.parseInt(data[i]);
             videos[i] = videoSize;
         }
+    }/*End setVideoInfo*/
+
+
+    public static void setEndpoints(){
 
         //first endpoint data
         int endpointID = 0;
@@ -72,20 +99,6 @@ public class Main{
                 cacheServerLatency = Integer.parseInt(data[1]);
                 ep.get_caches()[cacheServerID] = cacheServerLatency;
             }
-            System.out.println(Arrays.toString(ep.get_caches()));
         } /*End while*/
-
-        //Check videos
-        System.exit(1);
-
-        //We start on the request data
-        while(in.hasNextLine()){
-            data = in.nextLine().split(" ");
-
-        }
-    }/*End main*/
-
-    public static void setUpEndpoints(){
-
     }
 }
