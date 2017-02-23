@@ -1,6 +1,6 @@
 import java.io.*;
 
-class Filewriter{
+class FileWriter{
     private String logFileName="";
     private int nLogLines=0;
 
