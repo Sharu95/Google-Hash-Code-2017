@@ -18,14 +18,6 @@ public class Main{
         String filename = "../res/"+zoo;
         File inputFile = new File(filename);
 
-        FileWriter fw = new FileWriter(filename);
-        fw.write_line("Hello");
-        fw.write_char(1);
-        fw.write_char(2);
-        fw.write_char(3);
-        fw.write_char(4);
-        fw.write_char(5);
-        fw.write_charLn(6);
         try{
             in = new Scanner(inputFile);
         }
