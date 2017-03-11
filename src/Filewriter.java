@@ -30,8 +30,7 @@ class FileWriter{
             logLine = ""+data;
     }
 
-    public void write_charLn(int data){
-        write_char(data);
+    public void write_charLn(){
         write_line(logLine);
         logLine = "";
     }

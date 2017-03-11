@@ -10,7 +10,7 @@ class Endpoint{
         this.cache_servers = new int[caches];
 
         for(int i=0;i<cache_servers.length;i++){
-            cacheServers[i] = -1;
+            cache_servers[i] = -1;
         }
 
     }

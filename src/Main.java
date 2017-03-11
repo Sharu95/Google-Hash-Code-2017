@@ -57,7 +57,19 @@ public class Main{
         setEndpoints();
         doRequests();
 
-
+        int usedCaches=0;
+        for (Cache c : cacheServers) {
+            if(c.getBufferSize() != c.getCapacity()){
+                usedCaches++;
+            }
+        }
+        fw.write_line(""+usedCaches);
+        for (Cache c : cacheServers) {
+            for (Video v : c.buffer) {
+                fw.write_char(v.id);
+            }
+            fw.write_charLn();
+        }
 
         in.close();
     }/*End main*/
@@ -83,10 +95,24 @@ public class Main{
                 continue;
             }else{
                 //does a cache contain the requested video?
-                for (int cacheID : ep.get_caches()) {
-                    if () {
-                        
+                boolean hasVideo = false;
+                for (int i=0; i<ep.get_caches().length; i++) {
+                    if (ep.get_caches()[i] > 0) {
+                        if(cacheServers[i].hasVideo(videoID)){
+                            cacheServers[i].addVideo(videoID, 0, videos[videoID]);
+                        }
                     }
+                }
+                if(!hasVideo){
+                    int available = 0;
+                    int availableCache = 0;
+                    for (int i = 0; i < ep.get_caches().length; i++ ) {
+                        if (cacheServers[i].getBufferSize() > available) {
+                            available = cacheServers[i].getBufferSize();
+                            availableCache = i;
+                        }
+                    }
+                    cacheServers[availableCache].addVideo(videoID,0,videos[videoID]);
                 }
             }
         }
